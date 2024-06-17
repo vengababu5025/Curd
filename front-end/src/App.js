@@ -7,12 +7,13 @@ import Edit from './Edit';
 import Delete from './Delete';
 import Login from './Login';
 
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/Login' element={<Login/>}></Route>
-        <Route path='/' element={<Data/>}></Route>
+        <Route path='/' element={<Login/>}></Route>
+        <Route path='/Data' element={<Data/>}></Route>
         <Route path='/Create' element={<Create/>}></Route>
         <Route path='/Edit/:id' element={<Edit/>}></Route>
         <Route path='/Delete/:id' element={<Delete/>}></Route>

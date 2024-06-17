@@ -1,7 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 function Create() {
     const [values,setValues]=useState({
@@ -33,7 +35,12 @@ function Create() {
                     <input type='mail' placeholder='Enter Mail' className='form-control'
                     onChange={e=>setValues({...values, email:e.target.value})}></input>
                 </div>
+                          
+                <div className='d-flex justify-content-between'>
+                <Link to={`/Data`} className='btn btn-sm btn-primary mx-2'>
+                <i className='fas fa-arrow-left'></i> Back</Link> 
                 <button className='btn btn-success'>Submit</button>
+                </div>
             </form>
         </div>
     </div>

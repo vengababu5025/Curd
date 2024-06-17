@@ -10,11 +10,10 @@ app.use(cors());
 app.use(express.json());
 
 const db_con = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT
+    host:'localhost',
+    user:'root',
+    password:'Venga@0715',
+    database:'sample',
 });
 db_con.connect((err) => {
     if (err) {
@@ -71,19 +70,30 @@ app.delete('/delete/:id', (req, res) => {
     });
 });
 
-app.get('/login',(req,res)=>{
-	const sql="select * from student where admin='admin' AND password='Venga@5025'";
-	const values = [
+app.post('/login', (req, res) => {
+    const sql = "SELECT * FROM sadmin WHERE admin=? AND password=?";
+    const values = [
         req.body.username,
         req.body.password
     ];
-	db_con.query(sql,(err,result)=>{
-		if (err) return res.json(err);
-		console.log(result)
-        return res.json(result);
+    
+    db_con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error("Error executing query:", err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        
+        console.log("Query result:", result);
+        if (result.length > 0) {
+            // User authenticated successfully
+            return res.json({ success: true, user: result[0] });
+        } else {
+            // Authentication failed
+            return res.status(401).json({ success: false, message: "Invalid credentials" });
+        }
+    });
+});
 
-	})
-})
 
 
 app.listen(port, () => {

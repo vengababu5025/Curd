@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate,Link } from 'react-router-dom';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function Edit() {
     const { id } = useParams();
@@ -55,7 +56,11 @@ function Edit() {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <button className='btn btn-success' type='submit'>Submit</button>
+                    <div className='d-flex justify-content-between'>
+                <Link to={`/Data`} className='btn btn-sm btn-primary mx-2'>
+                <i className='fas fa-arrow-left'></i> Back</Link> 
+                <button className='btn btn-success'>Submit</button>
+                </div>
                 </form>
             </div>
         </div>
