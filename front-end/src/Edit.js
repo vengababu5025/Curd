@@ -24,7 +24,7 @@ function Edit() {
         axios.put(`http://localhost:3001/update/${id}`, { Name, Email })
             .then(res => {
                 console.log('Student updated successfully');
-                navigate('/');
+                navigate('/Data');
             })
             .catch(err => console.log(err));
     };

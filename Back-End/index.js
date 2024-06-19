@@ -24,10 +24,21 @@ db_con.connect((err) => {
 });
 
 app.get('/', (req, res) => {
-    let sql = "select * from student";
-    db_con.query(sql, (err, rows) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+    const sqlCount = "SELECT COUNT(*) AS total FROM student";
+    const sqlData = "SELECT * FROM student LIMIT ?, ?";
+
+    db_con.query(sqlCount, (err, countResult) => {
         if (err) return res.json(err);
-        return res.json({ students: rows });
+        const total = countResult[0].total;
+
+        db_con.query(sqlData, [offset, limit], (err, rows) => {
+            if (err) return res.json(err);
+            return res.json({ total, students: rows });
+        });
     });
 });
 
